@@ -20,6 +20,12 @@ stalingrad.html, normandiya.html, berlin.html
 Her birinde: künye (tarih, yer, taraflar, komutanlar, sonuç) ve
 Arka plan → Muharebe → Sonuç ve önemi bölümleri.
 
+İNGİLİZCE SÜRÜM
+en/               Tüm sayfaların İngilizce kopyaları (aynı dosya adları).
+                  Header'daki dünya ikonuna tıklanınca ikon döner ve
+                  TR / EN seçimi açılır. JavaScript yok: <details> etiketi
+                  ve CSS animasyonu (@keyframes) ile çalışır.
+
 DİĞER DOSYALAR
 css/style.css     Tüm sayfaların ortak tasarımı, mobil uyumluluk
 images/           Tarihî fotoğraflar (normandiya, stalingrad, berlin,

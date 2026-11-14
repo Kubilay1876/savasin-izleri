@@ -226,6 +226,55 @@ h1 { font-family: Georgia,'Times New Roman',serif; margin-bottom: 27px; line-hei
 .detail-facts dt { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-top: 20px; }
 .detail-facts dd { margin: 7px 0 0; padding-bottom: 18px; border-bottom: 1px solid var(--border); font: normal 18px Georgia, 'Times New Roman', serif; line-height: 1.45; }
 
+/* ---------------------------------------------------------------
+   Dil seçici (TR / EN) — JavaScript yok, <details> etiketiyle çalışır.
+   1) Tıklanınca <details> "open" durumuna geçer.
+   2) [open] seçicisi ile dünya ikonu döner (animation).
+   3) Dil listesi 0.35 sn gecikmeyle, dönüş bittikten sonra açılır.
+   --------------------------------------------------------------- */
+.lang-menu { position: relative; }
+.lang-menu summary { display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 13px; border: 1px solid var(--border); cursor: pointer; list-style: none; color: #c9c8c1; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; transition: border-color .2s, color .2s; }
+.lang-menu summary::-webkit-details-marker { display: none; }
+.lang-menu summary:hover, .lang-menu[open] summary { border-color: var(--gold); color: var(--text); }
+
+/* Dünya ikonu: SVG çizgileri altın rengi */
+.globe { width: 20px; height: 20px; fill: none; stroke: var(--gold); stroke-width: 1.4; }
+.globe-meridian { transform-box: fill-box; transform-origin: center; }
+.lang-menu summary:hover .globe { transform: rotate(-12deg); transition: transform .3s; }
+
+/* Menü açılınca: ikon büyüyüp eğilir, boylam çizgisi daralıp genişleyerek dünyanın kendi ekseninde dönüyormuş gibi görünmesini sağlar */
+.lang-menu[open] .globe { animation: globe-pop .7s cubic-bezier(.65, 0, .35, 1); }
+.lang-menu[open] .globe-meridian { animation: globe-spin .7s cubic-bezier(.65, 0, .35, 1); }
+@keyframes globe-pop {
+  0%   { transform: rotate(0) scale(1); }
+  40%  { transform: rotate(-25deg) scale(1.25); }
+  100% { transform: rotate(0) scale(1); }
+}
+@keyframes globe-spin {
+  0%   { transform: scaleX(1); }
+  25%  { transform: scaleX(0); }
+  50%  { transform: scaleX(-1); }
+  75%  { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+/* Dil listesi: dünya döndükten sonra (0.35 sn gecikme) yukarıdan süzülerek açılır */
+.lang-list { position: absolute; right: 0; top: calc(100% + 8px); z-index: 50; min-width: 175px; display: flex; flex-direction: column; border: 1px solid #3e4548; background: #181d20; box-shadow: 0 15px 35px #0009; padding: 8px; animation: lang-in .3s ease .35s both; }
+@keyframes lang-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.lang-list a { display: flex; align-items: center; gap: 12px; padding: 11px 12px; font-size: 13px; color: #c9c8c1; transition: background .2s, color .2s; }
+.lang-list a span { width: 20px; color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; }
+.lang-list a:hover { background: #232a2d; color: var(--text); }
+.lang-list a.is-active { color: var(--gold); }
+.lang-list a.is-active::after { content: "✓"; margin-left: auto; }
+
+/* Hareket istemeyen kullanıcılar için (işletim sistemi ayarı) animasyonları kapat */
+@media (prefers-reduced-motion: reduce) {
+  .lang-menu[open] .globe, .lang-menu[open] .globe-meridian, .lang-list { animation: none; }
+}
+
 /* Tablet and phone */
 @media (max-width: 1050px) {
   .container { width: min(var(--container), calc(100% - 48px)); }
@@ -251,6 +300,10 @@ h1 { font-family: Georgia,'Times New Roman',serif; margin-bottom: 27px; line-hei
   .mobile-menu nav { display: flex; flex-direction: column; position: absolute; right: 0; top: 45px; min-width: 235px; border: 1px solid #3e4548; background: #181d20; box-shadow: 0 15px 35px #0009; padding: 12px; }
   .mobile-menu nav a { padding: 11px 10px; font-size: 13px; }
   .mobile-menu nav a:hover { color: var(--gold); }
+  .header-inner { gap: 10px; }
+  .lang-menu { margin-left: auto; }
+  .lang-menu summary { height: 40px; padding: 0 10px; }
+  .mobile-menu { margin-left: 0; }
   .hero { min-height: 640px; }
   .hero-content { padding-block: 100px 40px; }
   .hero::after { background: linear-gradient(90deg,rgba(10,14,17,.92),rgba(10,14,17,.6)),linear-gradient(0deg,rgba(10,14,17,.9),transparent 40%); }
