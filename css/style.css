@@ -1,0 +1,320 @@
+/* 1939—1945 | Savaşın İzleri — yalnızca HTML + CSS
+   Sayfalar: index, cepheler, kronoloji, insani-yuz, kaynaklar */
+:root {
+  --bg: #111417;
+  --bg-raised: #181c1f;
+  --bg-card: #1b1f22;
+  --text: #eae6dd;
+  --muted: #a7a7a0;
+  --faint: #777e80;
+  --gold: #c4a479;
+  --red: #9a483b;
+  --border: rgba(226, 219, 204, .15);
+  --container: 1180px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--gold); color: #111417; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.container { width: min(var(--container), calc(100% - 72px)); margin-inline: auto; }
+.skip-link { position: fixed; z-index: 500; top: -100px; left: 12px; background: var(--gold); color: var(--bg); padding: 10px 16px; }
+.skip-link:focus { top: 12px; }
+
+/* Navigation */
+.site-header { height: 84px; background: rgba(17,20,23,.97); border-bottom: 1px solid var(--border); position: relative; z-index: 40; }
+.header-inner { height: 100%; display: flex; align-items: center; gap: 35px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; min-width: 211px; }
+.brand-mark { display: grid; place-items: center; border: 1px solid var(--gold); color: var(--gold); font-size: 24px; width: 42px; height: 42px; font-family: Georgia,serif; }
+.brand-lines { display: flex; flex-direction: column; gap: 5px; }
+.brand-lines strong { font: bold 18px Georgia, 'Times New Roman', serif; letter-spacing: 2px; }
+.brand-lines small { color: var(--gold); font-size: 8px; letter-spacing: 2.4px; font-weight: 700; }
+.desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(13px,2vw,30px); flex: 1; }
+.desktop-nav a { font-size: 12px; color: #b9b9b3; font-weight: 600; transition: color .2s; }
+.desktop-nav a:hover, .desktop-nav a.is-active { color: var(--gold); }
+.header-link { white-space: nowrap; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; border: 1px solid var(--border); padding: 14px 17px; transition: border-color .2s, background .2s; }
+.header-link span { margin-left: 13px; color: var(--gold); }
+.header-link:hover, .header-link.is-active { border-color: var(--gold); background: #252b2d; }
+.mobile-menu { display: none; }
+
+/* Hero */
+.hero { isolation: isolate; position: relative; min-height: 660px; min-height: min(760px, calc(100svh - 84px)); background: #151a1d; display: flex; align-items: center; overflow: hidden; }
+.hero-photo { position: absolute; inset: 0; z-index: -3; background-color: #242a2d; background-image: url("../images/normandiya.jpg"); background-position: center 44%; background-size: cover; filter: grayscale(100%) contrast(1.1) brightness(.66); transform: scale(1.015); }
+.hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(10,14,17,.98) 0%,rgba(10,14,17,.91) 25%,rgba(10,14,17,.58) 52%,rgba(10,14,17,.18) 100%), linear-gradient(0deg,rgba(10,14,17,.88),transparent 34%,rgba(10,14,17,.18)); }
+.hero-grid { position: absolute; z-index: -2; inset: 0; pointer-events: none; opacity: .11; background-image: linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px); background-size: 90px 90px; }
+.hero-content { padding-top: 100px; padding-bottom: 90px; }
+.eyebrow { display: flex; align-items: center; gap: 15px; color: var(--gold); font-weight: 700; letter-spacing: 3.1px; font-size: 10px; margin: 0 0 38px; }
+.eyebrow .line { display: inline-block; width: 42px; height: 1px; background: var(--gold); }
+.eyebrow-index { color: #a3a3a1; margin-left: 3px; letter-spacing: 1px; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-family: Georgia,'Times New Roman',serif; margin-bottom: 27px; line-height: .99; font-weight: 400; letter-spacing: -3px; }
+.hero-year { display: block; font-size: clamp(4rem,8.4vw,8.2rem); white-space: nowrap; }
+.hero-year .dash { color: var(--gold); font-style: normal; }
+.hero-title { font-size: clamp(3.6rem,7.7vw,7.35rem); display: block; margin-top: 11px; }
+.hero-title i, .section-heading em { font-weight: 400; color: var(--gold); }
+.hero-lead { color: #d1d0cb; font-size: 16px; line-height: 1.9; max-width: 550px; margin-bottom: 34px; }
+.hero-actions { display: flex; align-items: center; gap: 32px; }
+.button { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; padding: 18px 22px; font-size: 11px; font-weight: 700; letter-spacing: 1px; transition: transform .25s, background .25s, border-color .25s; }
+.button:hover { transform: translateY(-3px); }
+.button-primary { background: var(--gold); color: #141517; }
+.button-primary:hover { background: #e0be8c; }
+.button span { font-size: 16px; font-weight: 400; }
+.text-link { font-size: 10px; letter-spacing: 1px; font-weight: 700; color: #e3e0d9; }
+.text-link span { color: var(--gold); font-size: 17px; margin-left: 8px; }
+.text-link:hover { color: var(--gold); }
+.hero-bottom { margin-top: 88px; padding-top: 21px; border-top: 1px solid rgba(255,255,255,.25); display: flex; justify-content: space-between; gap: 18px; font-size: 10px; letter-spacing: 1.5px; font-weight: 700; }
+.hero-bottom .muted { color: #b0b4b0; font-weight: 400; margin-left: 10px; }
+.hero-caption { font-size: 9px; color: #a4aaa9; text-align: right; }
+.hero-side-label { position: absolute; right: 20px; top: 38%; writing-mode: vertical-rl; color: #a9a9a5; letter-spacing: 3px; font-size: 9px; }
+
+/* General sections */
+.section-pad { padding-block: 112px; }
+.section-topline { border-top: 1px solid var(--border); padding-top: 17px; display: flex; justify-content: space-between; gap: 20px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #9b9d98; margin-bottom: 66px; }
+.kicker { color: var(--gold); font-weight: 700; font-size: 10px; letter-spacing: 2.5px; margin-bottom: 20px; }
+.section-heading { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 400; letter-spacing: -2px; line-height: 1.12; margin: 0; }
+.intro-layout { display: grid; grid-template-columns: 1fr .7fr; gap: 12%; align-items: start; }
+.intro-copy { padding-top: 30px; }
+.intro-copy p, .closing-layout p { color: #b0b2ae; line-height: 1.9; font-size: 15px; }
+.intro-copy p:first-child { color: #e3e1da; font-size: 17px; }
+.underlined-link { display: inline-flex; gap: 37px; padding: 0 0 13px; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: 12px; font-weight: bold; margin-top: 15px; }
+.underlined-link:hover { color: #ebc99e; }
+.fact-strip { margin-top: 100px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: repeat(3,1fr); }
+.fact { display: flex; align-items: flex-start; flex-direction: column; gap: 10px; padding: 33px 36px 33px 0; }
+.fact + .fact { padding-left: 40px; border-left: 1px solid var(--border); }
+.fact-number { font: normal 53px Georgia,'Times New Roman',serif; letter-spacing: -2px; }
+.fact-number small { font-size: 21px; letter-spacing: 0; }
+.fact-text { font-size: 9px; letter-spacing: 1.8px; color: var(--gold); font-weight: bold; }
+
+/* Battle cards */
+.battles { background: #181c1f; }
+.section-heading-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 45px; margin-bottom: 44px; }
+.section-heading-row > p { max-width: 280px; font-size: 14px; line-height: 1.8; color: #a7a7a2; margin: 0 0 6px; }
+.battle-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 23px; }
+.battle-card { min-width: 0; background: var(--bg-card); border: 1px solid #363b3d; transition: border-color .3s, transform .3s; }
+.battle-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+.battle-image { height: 245px; position: relative; overflow: hidden; background-color: #353a3b; background-position: center; background-size: cover; filter: grayscale(100%); transition: filter .3s; }
+.battle-card:hover .battle-image { filter: grayscale(35%); }
+.battle-stalingrad { background-image: linear-gradient(0deg, rgba(0,0,0,.35),transparent),url("../images/stalingrad.jpg"); }
+.battle-normandy { background-image: linear-gradient(0deg, rgba(0,0,0,.35),transparent),url("../images/normandiya.jpg"); }
+.battle-berlin { background-image: linear-gradient(0deg, rgba(0,0,0,.35),transparent),url("../images/berlin.jpg"); }
+.battle-britain { background-image: linear-gradient(0deg, rgba(0,0,0,.35),transparent),url("../images/britanya.jpg"); }
+.battle-midway { background-image: linear-gradient(0deg, rgba(0,0,0,.35),transparent),url("../images/midway.jpg"); }
+.battle-alamein { background-image: linear-gradient(0deg, rgba(0,0,0,.35),transparent),url("../images/elalamein.jpg"); }
+.image-count { position: absolute; left: 17px; bottom: 17px; padding: 8px 10px; font-weight: bold; background: rgba(16,20,22,.8); font-size: 10px; color: #e7e4db; letter-spacing: 1px; }
+.battle-info { padding: 28px 25px 29px; }
+.battle-meta { display: flex; justify-content: space-between; gap: 7px; font-size: 9px; letter-spacing: 1px; font-weight: 700; color: var(--gold); margin-bottom: 22px; }
+.battle-meta span:last-child { color: #b2b5b1; text-align: right; }
+.battle-info h2 { font: normal 27px Georgia,'Times New Roman',serif; letter-spacing: -.5px; margin-bottom: 13px; }
+.battle-info p { font-size: 13px; line-height: 1.8; color: #a7aaa7; min-height: 72px; margin-bottom: 22px; }
+.battle-info a { font-size: 10px; font-weight: 700; letter-spacing: 1.3px; color: var(--gold); }
+.battle-info a span { margin-left: 7px; font-size: 14px; }
+.battle-info a:hover { color: #f0cd9e; }
+
+/* Timeline */
+.timeline { list-style: none; padding: 0; margin: 72px 0 0; }
+.timeline li { display: grid; grid-template-columns: 165px 36px 1fr; gap: 25px; padding: 0 0 44px; min-height: 143px; position: relative; }
+.timeline li:not(:last-child)::after { position: absolute; content: ""; width: 1px; left: 207px; top: 20px; bottom: 0; background: #49504c; }
+.timeline-year { font: normal clamp(42px,4vw,59px) Georgia,'Times New Roman',serif; color: #5b625f; line-height: 1; letter-spacing: -1.4px; margin: 0; }
+.timeline-dot { width: 11px; height: 11px; margin: 15px auto 0; border: 2px solid var(--gold); border-radius: 50%; background: var(--bg); z-index: 1; }
+.timeline li:hover .timeline-year, .timeline li:target .timeline-year { color: var(--gold); }
+.timeline-date { color: var(--gold); font-size: 9px; font-weight: bold; letter-spacing: 2px; }
+.timeline h3 { font: normal 27px Georgia,'Times New Roman',serif; margin: 9px 0; }
+.timeline p { max-width: 660px; font-size: 14px; line-height: 1.7; color: #a9aeaa; margin: 0; }
+
+/* Human impact */
+.human-section { isolation: isolate; position: relative; background: #202322; min-height: 640px; display: flex; align-items: center; }
+.human-image { position: absolute; inset: 0; z-index: -2; background: #282b2c url("../images/berlin.jpg") center / cover no-repeat; filter: grayscale(100%) brightness(.45); }
+.human-section::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg,#15191b 1%,rgba(21,25,27,.93) 35%,rgba(21,25,27,.6) 73%,rgba(21,25,27,.35)); }
+.human-content { padding-block: 95px; }
+.human-panel { max-width: 710px; }
+.human-panel .section-heading { font-size: clamp(3rem,5vw,4.7rem); margin-bottom: 28px; }
+.human-panel > p:not(.kicker) { color: #d0d1cc; line-height: 1.9; font-size: 15px; max-width: 650px; }
+.button-outline { margin-top: 20px; border: 1px solid var(--gold); color: var(--gold); }
+.button-outline:hover { background: var(--gold); color: var(--bg); }
+
+/* Sources and footer */
+.closing-layout { display: grid; grid-template-columns: .9fr 1fr; gap: 12%; align-items: start; }
+/* .closing-layout p kuralı .kicker'ı ezmesin diye: daha özgül seçici */
+.closing-layout .kicker { color: var(--gold); font-size: 10px; line-height: normal; }
+.closing-layout > div:first-child > p:last-child { margin-top: 26px; max-width: 450px; }
+.source-list { border-top: 1px solid var(--border); }
+.source-list > a { display: grid; grid-template-columns: 39px 1fr 20px; align-items: center; gap: 12px; padding: 24px 4px; border-bottom: 1px solid var(--border); }
+.source-list > a span:first-child { color: var(--gold); font-size: 11px; }
+.source-list > a strong { font: normal 19px Georgia,serif; }
+.source-list > a span:last-child { color: var(--gold); }
+.source-list > a:hover strong { color: var(--gold); }
+.image-credits { padding: 21px 4px; border-bottom: 1px solid var(--border); }
+.image-credits summary { font-size: 12px; cursor: pointer; color: #c7c6be; }
+.image-credits summary span { color: var(--gold); margin-left: 5px; }
+.image-credits p { padding: 15px 0 0; font-size: 12px; line-height: 1.7; }
+.image-credits a { display: block; font-size: 12px; padding: 7px 0; color: var(--gold); }
+.site-footer { background: #0c0f11; border-top: 1px solid var(--border); padding-top: 54px; }
+.footer-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 48px; }
+.footer-brand { font: 34px Georgia,serif; letter-spacing: -1px; }
+.footer-brand span { font-size: 22px; color: var(--gold); margin-left: 8px; }
+.footer-inner p, .footer-right a, .footer-bottom { color: #8d9797; font-size: 9px; font-weight: bold; letter-spacing: 1.6px; }
+.footer-inner p { margin: 15px 0 0; }
+.footer-right { text-align: right; }
+.footer-right a { display: inline-block; margin-top: 18px; color: var(--gold); }
+.footer-bottom { border-top: 1px solid var(--border); padding-block: 22px; display: flex; justify-content: space-between; }
+
+/* Home: exhibition rooms */
+.rooms { background: var(--bg-raised); }
+
+/* Previous / next page links (bottom of every inner page) */
+.pager { border-top: 1px solid var(--border); background: var(--bg); }
+.pager-inner { display: flex; justify-content: space-between; gap: 24px; padding-block: 44px; }
+.pager a { display: flex; flex-direction: column; gap: 10px; }
+.pager-next { text-align: right; margin-left: auto; }
+.pager small { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 2px; }
+.pager strong { font: normal 28px Georgia, 'Times New Roman', serif; letter-spacing: -.5px; transition: color .2s; }
+.pager a:hover strong { color: var(--gold); }
+
+/* Kronoloji: yıllara atlama menüsü (her link aynı sayfadaki #y1939 gibi bir id'ye gider) */
+.year-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.year-nav a { border: 1px solid var(--border); padding: 10px 15px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #c9c8c1; transition: border-color .2s, color .2s; }
+.year-nav a:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Kronoloji: aynı yıldaki olaylar alt alta, aralarında boşluk */
+.timeline-event + .timeline-event { margin-top: 34px; }
+/* Cepheler sayfasındaki "Kronolojide gör" linkiyle gelinen olay altın renginde vurgulanır */
+.timeline-event:target h3 { color: var(--gold); }
+
+/* İnsanî Yüz: iki sütunlu konu kartları (grid) */
+.topics-heading { margin-bottom: 50px; }
+.topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--border); margin-bottom: 44px; }
+.topic { padding: 38px 40px 42px 0; border-bottom: 1px solid var(--border); }
+.topic:nth-child(even) { padding: 38px 0 42px 40px; border-left: 1px solid var(--border); }
+.topic-number { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 2px; }
+.topic h3 { font: normal 30px Georgia, 'Times New Roman', serif; letter-spacing: -.5px; margin: 16px 0 14px; }
+.topic p { color: #b0b2ae; font-size: 15px; line-height: 1.85; margin: 0; }
+
+/* İnsanî Yüz: Türkiye bölümü, farklı arka plan rengiyle ayrılır */
+.turkey { background: var(--bg-raised); }
+.turkey .closing-layout > div:last-child p:first-child { color: #e3e1da; font-size: 17px; }
+
+/* Cepheler: kartın tamamı tıklanabilir. Linkin ::after öğesi kartın üzerini kaplar */
+.battle-card { position: relative; }
+.card-link::after { content: ""; position: absolute; inset: 0; }
+
+/* Kronoloji: muharebe detay sayfasına giden küçük link */
+.timeline-link { display: inline-block; margin-top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 1.3px; color: var(--gold); }
+.timeline-link:hover { color: #f0cd9e; }
+
+/* Muharebe detay sayfaları: fotoğraflı başlık alanı */
+.detail-hero { isolation: isolate; position: relative; min-height: 540px; display: flex; align-items: flex-end; overflow: hidden; background: #151a1d; }
+.detail-hero-photo { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; filter: grayscale(100%) brightness(.6); }
+.detail-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, var(--bg) 0%, rgba(17,20,23,.8) 40%, rgba(17,20,23,.3) 100%); }
+.detail-hero-content { padding-block: 110px 56px; }
+.detail-hero .section-heading { margin-bottom: 24px; }
+.detail-lead { max-width: 650px; color: #d1d0cb; font-size: 17px; line-height: 1.8; margin: 0; }
+.breadcrumb { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #a7a7a0; margin-bottom: 44px; }
+.breadcrumb a { color: var(--gold); }
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* Muharebe detay sayfaları: solda metin, sağda künye (2 sütunlu grid) */
+.detail-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 9%; align-items: start; }
+.detail-part + .detail-part { margin-top: 56px; }
+.detail-part h2 { font: normal 34px Georgia, 'Times New Roman', serif; letter-spacing: -.5px; margin-bottom: 22px; }
+.detail-part h2 span { color: var(--gold); font: 700 11px Arial, sans-serif; letter-spacing: 2px; vertical-align: middle; margin-right: 12px; }
+.detail-part p { color: #b9bab5; font-size: 16px; line-height: 1.9; }
+.detail-text .underlined-link { margin-top: 30px; }
+/* sticky: sayfa kaydırılırken künye kutusu ekranda kalır */
+.detail-facts { position: sticky; top: 30px; border-top: 1px solid var(--gold); padding-top: 24px; }
+.detail-facts dl { margin: 0; }
+.detail-facts dt { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-top: 20px; }
+.detail-facts dd { margin: 7px 0 0; padding-bottom: 18px; border-bottom: 1px solid var(--border); font: normal 18px Georgia, 'Times New Roman', serif; line-height: 1.45; }
+
+/* Tablet and phone */
+@media (max-width: 1050px) {
+  .container { width: min(var(--container), calc(100% - 48px)); }
+  .desktop-nav { gap: 14px; }
+  .desktop-nav a { font-size: 11px; }
+  .header-link { display: none; }
+  .hero-year { font-size: clamp(4rem,8vw,6.5rem); }
+  .hero-title { font-size: clamp(3.6rem,7.3vw,6rem); }
+  .battle-grid { gap: 13px; }
+  .battle-info { padding: 22px 17px; }
+  .battle-info h2 { font-size: 23px; }
+}
+@media (max-width: 760px) {
+  html { scroll-padding-top: 70px; }
+  .site-header { height: 70px; }
+  .container { width: calc(100% - 36px); }
+  .brand { min-width: auto; }
+  .desktop-nav { display: none; }
+  .mobile-menu { display: block; margin-left: auto; position: relative; }
+  .mobile-menu summary { width: 40px; height: 40px; padding: 10px 7px; cursor: pointer; list-style: none; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .mobile-menu summary::-webkit-details-marker { display: none; }
+  .mobile-menu summary span { display: block; width: 24px; height: 2px; background: var(--gold); }
+  .mobile-menu nav { display: flex; flex-direction: column; position: absolute; right: 0; top: 45px; min-width: 235px; border: 1px solid #3e4548; background: #181d20; box-shadow: 0 15px 35px #0009; padding: 12px; }
+  .mobile-menu nav a { padding: 11px 10px; font-size: 13px; }
+  .mobile-menu nav a:hover { color: var(--gold); }
+  .hero { min-height: 640px; }
+  .hero-content { padding-block: 100px 40px; }
+  .hero::after { background: linear-gradient(90deg,rgba(10,14,17,.92),rgba(10,14,17,.6)),linear-gradient(0deg,rgba(10,14,17,.9),transparent 40%); }
+  .hero-year { font-size: clamp(3.45rem, 10vw, 5.6rem); }
+  .hero-title { font-size: clamp(3.3rem, 9.5vw, 5rem); }
+  .hero-side-label, .hero-caption { display: none; }
+  .hero-bottom { margin-top: 65px; }
+  .section-pad { padding-block: 74px; }
+  .section-topline { margin-bottom: 37px; }
+  .intro-layout, .closing-layout { grid-template-columns: 1fr; gap: 30px; }
+  .intro-copy { padding-top: 0; }
+  .fact-strip { margin-top: 60px; }
+  .fact { padding-right: 10px; }
+  .fact + .fact { padding-left: 16px; }
+  .fact-number { font-size: 36px; }
+  .fact-number small { font-size: 13px; }
+  .fact-text { line-height: 1.5; font-size: 8px; }
+  .section-heading-row { display: block; margin-bottom: 32px; }
+  .section-heading-row > p { max-width: 480px; margin-top: 20px; }
+  .battle-grid { grid-template-columns: 1fr; gap: 20px; }
+  .battle-image { height: 280px; }
+  .battle-info p { min-height: 0; }
+  .timeline li { grid-template-columns: 95px 20px 1fr; gap: 13px; min-height: 160px; }
+  .timeline li:not(:last-child)::after { left: 117px; }
+  .timeline-year { font-size: 39px; }
+  .timeline h3 { font-size: 22px; }
+  .timeline { margin-top: 42px; }
+  .human-content { padding-block: 80px; }
+  .footer-inner { flex-direction: column; }
+  .footer-right { text-align: left; }
+  .pager strong { font-size: 21px; }
+  .topic-grid { grid-template-columns: 1fr; }
+  .topic, .topic:nth-child(even) { padding: 30px 0; border-left: 0; }
+  .topic h3 { font-size: 25px; }
+  .detail-hero { min-height: 460px; }
+  .detail-hero-content { padding-block: 90px 40px; }
+  .detail-layout { grid-template-columns: 1fr; gap: 50px; }
+  .detail-facts { position: static; order: -1; }
+  .detail-part h2 { font-size: 27px; }
+}
+@media (max-width: 420px) {
+  .brand-mark { width: 35px; height: 35px; }
+  .brand-lines strong { font-size: 15px; }
+  .brand-lines small { font-size: 7px; }
+  .hero { min-height: 610px; }
+  .hero-year { font-size: 12.5vw; letter-spacing: -2px; }
+  .hero-title { font-size: 13vw; }
+  .hero-lead { font-size: 14px; }
+  .hero-actions { gap: 15px; flex-wrap: wrap; }
+  .hero-actions .button { padding: 16px; }
+  .hero-bottom .muted { display: block; margin-left: 0; margin-top: 8px; }
+  .section-topline { font-size: 8px; letter-spacing: 1.1px; }
+  .section-heading { font-size: 2.65rem; }
+  .fact-strip { grid-template-columns: 1fr; }
+  .fact, .fact + .fact { padding: 18px 0; border-left: 0; }
+  .fact + .fact { border-top: 1px solid var(--border); }
+  .fact-number { font-size: 45px; }
+  .timeline li { grid-template-columns: 70px 15px 1fr; gap: 10px; }
+  .timeline li:not(:last-child)::after { left: 87px; }
+  .timeline-year { font-size: 30px; }
+  .timeline p { font-size: 12px; }
+  .footer-bottom { gap: 10px; line-height: 1.5; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}
