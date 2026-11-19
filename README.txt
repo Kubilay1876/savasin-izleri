@@ -39,7 +39,7 @@ site https://kullaniciadi.github.io/repo-adi/ altında sorunsuz çalışır.
 Dosya adları küçük harf ve Türkçe karaktersizdir (GitHub Pages büyük/küçük
 harfe duyarlıdır).
 
-KULLANILAN TARİHÎ GÖRSELLER (kamu malı)
+KULLANILAN TARİHÎ GÖRSELLER (Kamu malı)
 1. Normandiya: Robert F. Sargent / U.S. Coast Guard (1944).
    https://commons.wikimedia.org/wiki/File:Into_the_Jaws_of_Death_(6414569).jpg
 2. Stalingrad: Festung Stalingrad 1943; fotoğrafçısı bilinmiyor;
